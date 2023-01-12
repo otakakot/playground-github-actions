@@ -1,0 +1,15 @@
+name: playground
+run-name: ${{ github.ref_name }} by @${{ github.actor }} :${{ github.workflow }}
+on:
+  push:
+    branches:
+      - main
+jobs:
+  playground:
+    runs-on: ubuntu-22.04
+    steps:
+      # @see https://github.com/actions/runner-images/blob/main/images/linux/Ubuntu2204-Readme.md
+      - name: yq
+        run: yq --version
+      - name: jq
+        run: jq --version

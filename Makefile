@@ -1,0 +1,3 @@
+.PHONY: ymlfmt
+ymlfmt:
+	@yamlfmt
