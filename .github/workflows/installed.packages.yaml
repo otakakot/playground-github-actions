@@ -13,3 +13,5 @@ jobs:
       run: dpkg -l | grep ^ii
     - name: yq
       run: yq --version
+    - name: jq
+      run: jq --version
