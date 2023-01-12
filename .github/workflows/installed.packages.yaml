@@ -1,0 +1,13 @@
+name: installed packages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  packages:
+    runs-on: ubuntu-latest
+    steps:
+    - name: List packages
+      run: dpkg -l | grep ^ii
