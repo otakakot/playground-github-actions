@@ -15,12 +15,12 @@ jobs:
   environment:
     runs-on: ubuntu-22.04
     env:
-      ENV: |
+      ENV: |-
         ${{ fromJSON('{
           "develop": "dev",
           "preview": "prev",
           "production": "prod"
-        }')[github.event.inputs.environment] }} \
+        }')[github.event.inputs.environment] }}
     steps:
       - name: echo
         run: |
