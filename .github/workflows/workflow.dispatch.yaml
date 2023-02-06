@@ -26,7 +26,7 @@ jobs:
           "production": "prod"
         }')[github.event.inputs.environment] }}
     steps:
-      - name: echo
+      - name: Display environment
         run: |
           echo "environment: ${{ github.event.inputs.environment }}"
           echo "env: ${{ env.ENV }}"
