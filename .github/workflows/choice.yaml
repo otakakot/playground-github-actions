@@ -1,0 +1,28 @@
+name: choice
+run-name: ${{ github.ref_name }} by @${{ github.actor }} at ${{ github.workflow }}
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: "Environment for creating tenants."
+        required: true
+        options:
+          - develop
+          - preview
+          - production
+jobs:
+  tag:
+    runs-on: ubuntu-22.04
+    env:
+      ENV: |
+        ${{ fromJSON('{
+          "develop": "dev",
+          "preview": "prev",
+          "production": "prod"
+        }')[github.event.inputs.environment] }}\
+    steps:
+      - name: echo
+        run: |
+          echo "environment: ${{ github.event.inputs.environment }}"
+          echo "env: ${{ env.ENV }}"
