@@ -5,12 +5,16 @@ on:
     inputs:
       environment:
         type: choice
-        description: "Environment for creating tenants."
+        description: "environment"
         required: true
         options:
           - develop
           - preview
           - production
+      name:
+        type: string
+        description: "name"
+        required: true
 jobs:
   environment:
     runs-on: ubuntu-22.04
@@ -26,3 +30,9 @@ jobs:
         run: |
           echo "environment: ${{ github.event.inputs.environment }}"
           echo "env: ${{ env.ENV }}"
+      - name: Check name
+        run: |
+          if [[ -z "${{ inputs.environment }}" ]]; then
+            echo "name is empty"
+            exit 1
+          fi
