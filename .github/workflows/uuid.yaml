@@ -1,0 +1,14 @@
+name: uuid
+run-name: ${{ github.ref_name }} by @${{ github.actor }} at ${{ github.workflow }}
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/uuid.yaml
+jobs:
+  uuid:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Generate uuid
+        run: echo $(uuidgen | tr "[:upper:]" "[:lower:]")
