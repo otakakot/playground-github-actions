@@ -11,4 +11,6 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Generate uuid
-        run: echo $(uuidgen | tr "[:upper:]" "[:lower:]")
+        run: |
+          id=$(uuidgen | tr "[:upper:]" "[:lower:]")
+          echo ${id}
