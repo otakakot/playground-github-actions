@@ -1,4 +1,4 @@
-name: choice
+name: workflow_dispatch
 run-name: ${{ github.ref_name }} by @${{ github.actor }} at ${{ github.workflow }}
 on:
   workflow_dispatch:
@@ -16,7 +16,7 @@ on:
         description: "name"
         required: true
 jobs:
-  environment:
+  workflow_dispatch:
     runs-on: ubuntu-22.04
     env:
       ENV: |-
@@ -32,7 +32,7 @@ jobs:
           echo "env: ${{ env.ENV }}"
       - name: Check name
         run: |
-          if [[ -z "${{ inputs.environment }}" ]]; then
+          if [[ -z "${{ inputs.name }}" ]]; then
             echo "name is empty"
             exit 1
           fi
