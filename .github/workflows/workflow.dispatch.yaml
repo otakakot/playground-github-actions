@@ -15,6 +15,11 @@ on:
         type: string
         description: "name"
         required: true
+      flag:
+        type: boolean
+        description: "flag"
+        required: true
+        default: false
 jobs:
   workflow_dispatch:
     runs-on: ubuntu-22.04
