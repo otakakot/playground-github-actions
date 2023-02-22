@@ -3,8 +3,28 @@ run-name: ${{ github.ref_name }} by @${{ github.actor }} at ${{ github.workflow 
 on:
   workflow_dispatch:
 jobs:
+  check:
+    runs-on: ubuntu-22.04
+    outputs:
+      creatable: ${{ steps.check-diff.outputs.creatable }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Check diff
+        id: check-diff
+        run: |
+          latest_tag=$(git tag | sort -r | sed -n '1p')
+          latest_commit=$(git rev-parse HEAD)
+          diff=$(git diff --name-only ${latest_tag} ${latest_commit} | wc -l)
+          if [[ ${diff} -eq 0 ]]; then
+            echo "creatable=false" >> $GITHUB_OUTPUT
+          else
+            echo "creatable=true" >> $GITHUB_OUTPUT
+          fi
   tag:
     runs-on: ubuntu-22.04
+    needs: check
+    if: needs.check.outputs.creatable == 'true'
     steps:
       - name: Create tag
         id: create-tag
