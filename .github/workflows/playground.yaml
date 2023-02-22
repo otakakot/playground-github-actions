@@ -15,3 +15,7 @@ jobs:
         run: yq --version
       - name: jq
         run: jq --version
+      - name: Generate uuid
+        run: |
+          id=$(uuidgen | tr "[:upper:]" "[:lower:]")
+          echo ${id}
