@@ -14,7 +14,9 @@ jobs:
         id: check-diff
         run: |
           latest_tag=$(git tag | sort -r | sed -n '1p')
+          echo "${latest_tag}"
           latest_commit=$(git rev-parse HEAD)
+          echo "${latest_commit}"
           diff=$(git diff --name-only ${latest_tag} ${latest_commit} | wc -l)
           if [[ ${diff} -eq 0 ]]; then
             echo "creatable=false" >> $GITHUB_OUTPUT
