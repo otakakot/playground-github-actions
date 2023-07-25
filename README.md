@@ -2,4 +2,6 @@
 
 ```bash
 make tool
+make ymlfmt
+make ymlint
 ```
