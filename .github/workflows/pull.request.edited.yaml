@@ -13,4 +13,6 @@ jobs:
       - name: Check branch
         env:
           HEAD_REF: ${{ github.head_ref }}
-        run: echo ${{ env.HEAD_REF }}
+        run: |
+          echo ${{ env.HEAD_REF }}
+          echo "hoge"
