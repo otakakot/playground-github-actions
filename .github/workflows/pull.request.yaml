@@ -2,10 +2,8 @@ name: pull request edited
 run-name: ${{ github.ref_name }} by @${{ github.actor }} ${{ github.workflow }}
 on:
   pull_request:
-    types:
-      - edited
     paths:
-      - .github/workflows/pull.request.edited.yaml
+      - README.md
 jobs:
   pull-request:
     runs-on: ubuntu-latest
@@ -13,4 +11,6 @@ jobs:
       - name: Check branch
         env:
           HEAD_REF: ${{ github.head_ref }}
-        run: echo ${{ env.HEAD_REF }}
+        run: |
+          echo ${{ env.HEAD_REF }}
+          echo "hoge"
