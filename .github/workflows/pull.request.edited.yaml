@@ -1,0 +1,16 @@
+name: pull request edited
+run-name: ${{ github.ref_name }} by @${{ github.actor }} ${{ github.workflow }}
+on:
+  pull_request:
+    types:
+      - edited
+    paths:
+      - .github/workflows/pull.request.edited.yaml
+jobs:
+  pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check branch
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+        run: echo ${{ env.HEAD_REF }}
