@@ -37,7 +37,7 @@ jobs:
           echo "tag=${TAG}" >> $GITHUB_OUTPUT
       - name: Generate token
         id: generate-token
-        uses: tibdex/github-app-token@v2
+        uses: actions/create-github-app-token@v1
         with:
           app_id: ${{ secrets.BOT_GITHUB_APP_ID }}
           private_key: ${{ secrets.BOT_GITHUB_APP_PRIVATE_KEY }}
