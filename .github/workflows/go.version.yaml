@@ -21,3 +21,4 @@ jobs:
         run: |
             GO_VERSION=$(go version | awk '{print $3}' | cut -c 3-)
             echo "${GO_VERSION}"
+            echo "${GOVERSION}"
