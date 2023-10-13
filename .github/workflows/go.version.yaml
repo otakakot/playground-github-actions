@@ -17,6 +17,7 @@ jobs:
         uses: actions/setup-go@v4
         with:
           go-version-file: core/go.mod
+          check-latest: true
       - name: Go version
         run: |
             GO_VERSION=$(go version | awk '{print $3}' | cut -c 3-)
