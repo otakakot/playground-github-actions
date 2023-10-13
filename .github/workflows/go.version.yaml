@@ -16,7 +16,7 @@ jobs:
       - name: Setup go
         uses: actions/setup-go@v4
         with:
-          go-version-file: go.mod
+          go-version-file: core/go.mod
       - name: Go version
         run: |
             GO_VERSION=$(go version | awk '{print $3}' | cut -c 3-)
