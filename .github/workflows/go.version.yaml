@@ -20,4 +20,4 @@ jobs:
       - name: Go version
         env:
           GO_VERSION: go version | awk '{print $3}' | cut -c 3-
-        run: echo "${GO_VERSION}"
+        run: echo ${{ env.GO_VERSION }}
