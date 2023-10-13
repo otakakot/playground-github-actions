@@ -1,0 +1,21 @@
+name: go version
+run-name: ${{ github.ref_name }} by @${{ github.actor }} ${{ github.workflow }}
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+on:
+  pull_request:
+    paths:
+      - .github/workflows/go.version.yaml
+jobs:
+  version:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup go
+        uses: actions/setup-go@v4
+        with:
+          go-version-file: go.mod
+      - name: Go version
+        run: go version
