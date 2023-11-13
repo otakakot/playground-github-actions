@@ -1,0 +1,20 @@
+name: list pr
+run-name: ${{ github.ref_name }} by @${{ github.actor }} at ${{ github.workflow }}
+on:
+  pull_request:
+    branches:
+    - main
+    paths:
+    - .github/workflows/list.pr.yml
+  workflow_dispatch:
+jobs:
+  list_pr:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: list pr
+        run: |
+          gh --version
+          gh pr list --json title,url,createdAt,headRefName | \
+            jq '.[] | select(.headRefName | contains("release"))' | \
+            jq -s . | \
+            jq 'max_by(.createdAt) | .headRefName'
