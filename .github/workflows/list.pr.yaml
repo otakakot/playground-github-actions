@@ -20,6 +20,6 @@ jobs:
         run: |
           gh --version
           BRANCH=$(gh pr list --json title,url,createdAt,headRefName | jq '.[] | select(.headRefName | contains("release"))' | jq -s . | jq 'max_by(.createdAt) | .headRefName')
-          echo "branch: ${BRANCH}" >> $GITHUB_OUTPUT
+          echo "branch=${BRANCH}" >> $GITHUB_OUTPUT
       - name: branch
         run: echo ${{ steps.latest.outputs.branch }}
