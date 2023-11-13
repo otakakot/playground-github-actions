@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: latest
+      - name: list release pr
         id: latest
         run: |
           gh --version
