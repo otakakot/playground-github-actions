@@ -24,7 +24,7 @@ jobs:
       - name: branch        
         run: |
           branch=${{ steps.latest.outputs.branch }}
-          if [ -z "${branch}" ]; then
+          if [ "${branch}" = "null" ]; then
             branch="main"
           fi
           echo ${branch}
