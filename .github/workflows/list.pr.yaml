@@ -5,7 +5,7 @@ on:
     branches:
     - main
     paths:
-    - .github/workflows/list.pr.yml
+    - .github/workflows/list.pr.yaml
   workflow_dispatch:
 jobs:
   list_pr:
