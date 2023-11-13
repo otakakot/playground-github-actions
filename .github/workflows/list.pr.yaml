@@ -1,0 +1,30 @@
+name: list pr
+run-name: ${{ github.ref_name }} by @${{ github.actor }} at ${{ github.workflow }}
+on:
+  pull_request:
+    branches:
+    - main
+    paths:
+    - .github/workflows/list.pr.yaml
+  workflow_dispatch:
+jobs:
+  list_pr:
+    runs-on: ubuntu-22.04
+    env:
+        GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: list release pr
+        id: latest
+        run: |
+          gh --version
+          BRANCH=$(gh pr list --json title,url,createdAt,headRefName | jq '.[] | select(.headRefName | contains("release"))' | jq -s . | jq 'max_by(.createdAt) | .headRefName')
+          echo "branch=${BRANCH}" >> $GITHUB_OUTPUT
+      - name: branch        
+        run: |
+          branch=${{ steps.latest.outputs.branch }}
+          if [ "${branch}" = "null" ]; then
+            branch="main"
+          fi
+          echo ${branch}
