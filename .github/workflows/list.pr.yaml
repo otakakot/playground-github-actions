@@ -15,8 +15,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: list pr
+      - name: latest
+        id: latest
         run: |
           gh --version
-          branch=$(gh pr list --json title,url,createdAt,headRefName | jq '.[] | select(.headRefName | contains("release"))' | jq -s . | jq 'max_by(.createdAt) | .headRefName')
-          echo ${branch}
+          BRANCH=$(gh pr list --json title,url,createdAt,headRefName | jq '.[] | select(.headRefName | contains("release"))' | jq -s . | jq 'max_by(.createdAt) | .headRefName')
+          echo "branch: ${BRANCH}" >> $GITHUB_OUTPUT
+      - name: branch
+        run: echo ${{ steps.latest.outputs.branch }}
