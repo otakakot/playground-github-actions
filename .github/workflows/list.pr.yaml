@@ -14,7 +14,5 @@ jobs:
       - name: list pr
         run: |
           gh --version
-          gh pr list --json title,url,createdAt,headRefName | \
-            jq '.[] | select(.headRefName | contains("release"))' | \
-            jq -s . | \
-            jq 'max_by(.createdAt) | .headRefName'
+          branch=$(gh pr list --json title,url,createdAt,headRefName | jq '.[] | select(.headRefName | contains("release"))' | jq -s . | jq 'max_by(.createdAt) | .headRefName')
+          echo ${branch}
