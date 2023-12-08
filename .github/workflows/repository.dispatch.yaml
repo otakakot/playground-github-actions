@@ -8,6 +8,6 @@ jobs:
   repository_dispatch:
     runs-on: ubuntu-22.04
     steps:
-      - name: Display environment
+      - name: Repository Dispatch
         run: |
           echo "Hello, Repository Dispatch!"
