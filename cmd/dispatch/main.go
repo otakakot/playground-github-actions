@@ -11,11 +11,13 @@ import (
 	"github.com/google/go-github/v57/github"
 )
 
-// GitHub App ID
-const GithubAppID = ""
-
-// pem 形式 の秘密鍵
-const GitHubSecretKey = ""
+const (
+	GitHubAppID     = "" // GitHub App ID
+	GitHubSecretKey = "" // pem 形式 の秘密鍵
+	Owner           = "" // リポジトリのオーナー
+	Repo            = "" // リポジトリ名
+	EventType       = "" // ディスパッチするイベントの種類
+)
 
 func main() {
 	now := time.Now()
@@ -23,7 +25,7 @@ func main() {
 	payload := jwt.MapClaims{
 		"exp": now.Unix() + 60,
 		"iat": now.Unix(),
-		"iss": GithubAppID,
+		"iss": GitHubAppID,
 	}
 
 	secret := []byte(GitHubSecretKey)
@@ -64,8 +66,8 @@ func main() {
 		Transport: &TokenTransport{Token: accessToken.GetToken()},
 	})
 
-	if _, _, err := client.Repositories.Dispatch(context.Background(), "otakakot", "playground-github-actions", github.DispatchRequestOptions{
-		EventType: "repository-dispatch",
+	if _, _, err := client.Repositories.Dispatch(context.Background(), Owner, Repo, github.DispatchRequestOptions{
+		EventType: EventType,
 	}); err != nil {
 		panic(err)
 	}
