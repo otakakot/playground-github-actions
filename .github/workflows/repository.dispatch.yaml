@@ -1,0 +1,13 @@
+name: repository dispatch
+run-name: ${{ github.ref_name }} by @${{ github.actor }} at ${{ github.workflow }}
+on:
+  repository_dispatch:
+    types:
+      - repository-dispatch
+jobs:
+  repository_dispatch:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Display environment
+        run: |
+          echo "Hello, Repository Dispatch!"
