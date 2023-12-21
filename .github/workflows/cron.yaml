@@ -1,0 +1,14 @@
+name: cron
+run-name: ${{ github.ref_name }} by @${{ github.actor }} at ${{ github.workflow }}
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/10 * * * *'
+jobs:
+  schedule_cron:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Echo
+        run: echo "Hello world!"
