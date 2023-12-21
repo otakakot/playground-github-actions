@@ -3,7 +3,7 @@ run-name: ${{ github.ref_name }} by @${{ github.actor }} at ${{ github.workflow 
 on:
   workflow_dispatch:
 jobs:
-  schedule_cron:
+  disable:
     runs-on: ubuntu-22.04
     steps:
       - name: Generate token
@@ -18,5 +18,7 @@ jobs:
           token: ${{ steps.generate-token.outputs.token }}
       - name: Disable
         run: ./script/disable.sh ./.github/workflows/cron.yaml
+      - name: Cat
+        run: cat ./.github/workflows/cron.yaml
       - name: Diff
         run: git diff

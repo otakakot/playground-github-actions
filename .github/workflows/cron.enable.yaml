@@ -3,7 +3,7 @@ run-name: ${{ github.ref_name }} by @${{ github.actor }} at ${{ github.workflow 
 on:
   workflow_dispatch:
 jobs:
-  schedule_cron:
+  enable:
     runs-on: ubuntu-22.04
     steps:
       - name: Generate token
