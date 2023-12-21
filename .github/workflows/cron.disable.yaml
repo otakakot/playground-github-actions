@@ -28,9 +28,11 @@ jobs:
             git config --global user.email ${{ env.GH_USER_EMAIL }}
             git config --global user.name ${{ env.GH_USER_NAME }}
             git branch cron/disable
+            git push -u origin cron/disable
+            git checkout cron/disable
             git add ./.github/workflows/cron.yaml
             git commit -m "disable"
-            git push -u origin cron/disable
+            git push
             url=$(gh pr create --base main --head cron/disable --title "(auto merged) disable cron" --body "disable cron")
             gh pr review --approve "${url}"
             gh pr merge --auto --merge "${url}"
