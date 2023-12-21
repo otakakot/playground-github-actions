@@ -17,8 +17,11 @@ jobs:
         with:
           token: ${{ steps.generate-token.outputs.token }}
       - name: Disable
-        run: ./script/disable.sh ./.github/workflows/cron.yaml
-      - name: Cat
-        run: cat ./.github/workflows/cron.yaml
-      - name: Diff
-        run: git diff
+        run: |
+          ./script/disable.sh ./.github/workflows/cron.yaml
+          diff=$(git diff ./.github/workflows/cron.yaml)
+          if [[ -n "${diff}" ]]; then
+            git add ./.github/workflows/cron.yaml
+            git commit -m "disable"
+            git push
+          fi
