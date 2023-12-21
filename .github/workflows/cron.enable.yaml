@@ -31,7 +31,7 @@ jobs:
             git add ./.github/workflows/cron.yaml
             git commit -m "enable"
             git push -u origin cron/enable
-            url=$(gh pr create --base main --dead cron/enable --title "(auto merged) enable cron" --body "enable cron")
+            url=$(gh pr create --base main --head cron/enable --title "(auto merged) enable cron" --body "enable cron")
             gh pr review --approve "${url}"
             gh pr merge --auto --merge "${url}"
           fi
