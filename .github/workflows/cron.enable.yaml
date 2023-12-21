@@ -2,6 +2,9 @@ name: cron enable
 run-name: ${{ github.ref_name }} by @${{ github.actor }} at ${{ github.workflow }}
 on:
   workflow_dispatch:
+env:
+  GH_USER_EMAIL: 126062861+otakakot-bot[bot]@users.noreply.github.com
+  GH_USER_NAME: otakakot-bot[bot]
 jobs:
   enable:
     runs-on: ubuntu-22.04
@@ -21,6 +24,8 @@ jobs:
           ./script/enable.sh ./.github/workflows/cron.yaml
           diff=$(git diff ./.github/workflows/cron.yaml)
           if [[ -n "${diff}" ]]; then
+            git config --global user.email ${{ env.GH_USER_EMAIL }}
+            git config --global user.name ${{ env.GH_USER_NAME }}
             git add ./.github/workflows/cron.yaml
             git commit -m "enable"
             git push
