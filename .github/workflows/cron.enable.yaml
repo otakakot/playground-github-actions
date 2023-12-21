@@ -27,13 +27,7 @@ jobs:
           if [[ -n "${diff}" ]]; then
             git config --global user.email ${{ env.GH_USER_EMAIL }}
             git config --global user.name ${{ env.GH_USER_NAME }}
-            git branch cron/enable
-            git push -u origin cron/enable
-            git checkout cron/enable
             git add ./.github/workflows/cron.yaml
             git commit -m "enable"
             git push
-            url=$(gh pr create --base main --head cron/enable --title "(auto merged) enable cron" --body "enable cron")
-            gh pr review --approve "${url}"
-            gh pr merge --auto --merge "${url}"
           fi
