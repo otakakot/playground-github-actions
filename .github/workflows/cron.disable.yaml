@@ -2,9 +2,6 @@ name: cron disable
 run-name: ${{ github.ref_name }} by @${{ github.actor }} at ${{ github.workflow }}
 on:
   workflow_dispatch:
-env:
-  GH_USER_EMAIL: 126062861+otakakot-bot[bot]@users.noreply.github.com
-  GH_USER_NAME: otakakot-bot[bot]
 jobs:
   disable:
     runs-on: ubuntu-22.04
@@ -20,13 +17,21 @@ jobs:
         with:
           token: ${{ steps.generate-token.outputs.token }}
       - name: Disable
+        env:
+          GH_USER_EMAIL: 126062861+otakakot-bot[bot]@users.noreply.github.com
+          GH_USER_NAME: otakakot-bot[bot]
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
         run: |
           ./script/disable.sh ./.github/workflows/cron.yaml
           diff=$(git diff ./.github/workflows/cron.yaml)
           if [[ -n "${diff}" ]]; then
             git config --global user.email ${{ env.GH_USER_EMAIL }}
             git config --global user.name ${{ env.GH_USER_NAME }}
+            git branch cron/disable
             git add ./.github/workflows/cron.yaml
             git commit -m "disable"
-            git push
+            git push -u origin cron/disable
+            url=$(gh pr create --base main --dead cron/disable --title "(auto merged) disable cron" --body "disable cron")
+            gh pr review --approve "${url}"
+            gh pr merge --auto --merge "${url}"
           fi
