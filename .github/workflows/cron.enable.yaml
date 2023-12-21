@@ -17,6 +17,6 @@ jobs:
         with:
           token: ${{ steps.generate-token.outputs.token }}
       - name: Enable
-        run: ./script/enable.sh ./.github/workflows/cron.yml
+        run: ./script/enable.sh ./.github/workflows/cron.yaml
       - name: Diff
         run: git diff
