@@ -2,6 +2,11 @@ name: cron disable
 run-name: ${{ github.ref_name }} by @${{ github.actor }} at ${{ github.workflow }}
 on:
   workflow_dispatch:
+  repository_dispatch:
+    types:
+      - disable
+  schedule:
+    - cron: '0 15 * * *'
 jobs:
   disable:
     runs-on: ubuntu-22.04

@@ -10,5 +10,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Echo
-        run: echo "Hello world!"
+      - name: Check
+        id: check
+        run: echo "check=true" >> "$GITHUB_OUTPUT"
+      - name: Generate token
+        if: ${{ steps.check.outputs.check }}
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.BOT_GITHUB_APP_ID }}
+          private-key: ${{ secrets.BOT_GITHUB_APP_PRIVATE_KEY }}
+      - name: Repository dispatch
+        if: ${{ steps.check.outputs.check }}
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
+          repository: ${{ github.repository }}
+          event-type: disable
