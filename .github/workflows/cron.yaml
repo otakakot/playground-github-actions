@@ -12,16 +12,17 @@ jobs:
         uses: actions/checkout@v4
       - name: Check
         id: check
-        run: echo "check=true" >> "$GITHUB_OUTPUT"
+        # 理想はここでジョブの実行をチェックして実行が終了したかどうかのフラグを立てる
+        run: echo "done=true" >> "$GITHUB_OUTPUT"
       - name: Generate token
-        if: ${{ steps.check.outputs.check }}
+        if: ${{ steps.check.outputs.done }}
         id: generate-token
         uses: actions/create-github-app-token@v1
         with:
           app-id: ${{ secrets.BOT_GITHUB_APP_ID }}
           private-key: ${{ secrets.BOT_GITHUB_APP_PRIVATE_KEY }}
       - name: Repository dispatch
-        if: ${{ steps.check.outputs.check }}
+        if: ${{ steps.check.outputs.done }}
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ steps.generate-token.outputs.token }}
