@@ -23,7 +23,7 @@ jobs:
           private-key: ${{ secrets.BOT_GITHUB_APP_PRIVATE_KEY }}
       - name: Repository dispatch
         if: ${{ steps.check.outputs.done }}
-        uses: peter-evans/repository-dispatch@v2
+        uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ steps.generate-token.outputs.token }}
           repository: ${{ github.repository }}
