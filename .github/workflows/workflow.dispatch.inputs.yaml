@@ -20,8 +20,27 @@ on:
         description: "flag"
         required: true
         default: false
+      tag:
+        type: string
+        description: "tag"
+        required: false
 jobs:
+  prepare:
+    runs-on: ubuntu-22.04
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
+    steps:
+      - name: Checkout
+        id: tag
+        run: |
+          if [[ -z "${{ inputs.tag }}" ]]; then
+            echo "tag=${{ inputs.tag }}" >> $GITHUB_OUTPUT
+          else
+            echo "tag=latest" >> $GITHUB_OUTPUT
+          fi
+
   workflow_dispatch:
+    needs: prepare
     runs-on: ubuntu-22.04
     env:
       ENV: |-
@@ -46,3 +65,6 @@ jobs:
           if [[ ${{ inputs.flag }} ]]; then
             echo "${{ inputs.name }}"
           fi
+      - name: Check tag
+        run: |
+          echo "tag: ${{ needs.prepare.outputs.tag }}"
