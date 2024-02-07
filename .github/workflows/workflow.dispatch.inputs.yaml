@@ -30,13 +30,23 @@ jobs:
     outputs:
       tag: ${{ steps.tag.outputs.tag }}
     steps:
-      - name: Checkout
+      - name: Set Tag
         id: tag
         run: |
           if [[ -z "${{ inputs.tag }}" ]]; then
-            echo "tag=latest" >> $GITHUB_OUTPUT
+            echo "tag=$(TZ=JST-9 date '+%Y-%m-%d-1')" >> $GITHUB_OUTPUT
           else
             echo "tag=${{ inputs.tag }}" >> $GITHUB_OUTPUT
+          fi
+      - name: Check
+        run: |
+          pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]$"
+          if [[ ${{ steps.tag.outputs.tag }} =~ $pattern ]]; then
+            echo ${{ steps.tag.outputs.tag }}
+            exit 0
+          else
+            echo "tag is invalid"
+            exit 1
           fi
 
   workflow_dispatch:
