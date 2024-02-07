@@ -36,7 +36,7 @@ jobs:
           if [[ -z "${{ inputs.tag }}" ]]; then
             echo "tag=release-$(TZ=JST-9 date '+%Y-%m-%d-1')" >> $GITHUB_OUTPUT
           else
-            echo "tag=${{ inputs.tag }}" >> $GITHUB_OUTPUT
+            echo "tag=release-${{ inputs.tag }}" >> $GITHUB_OUTPUT
           fi
       - name: Check
         run: |
