@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Dispatch
-        uses: otakakot/repository-dispatch@v0.0.6
+        uses: otakakot/repository-dispatch@v0.0.7
         with:
           app-id: ${{ secrets.BOT_GITHUB_APP_ID }}
           secret-key: ${{ secrets.BOT_GITHUB_APP_PRIVATE_KEY }}
