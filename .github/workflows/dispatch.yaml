@@ -1,0 +1,17 @@
+name: dispatch
+run-name: ${{ github.ref_name }} by @${{ github.actor }} at ${{ github.workflow }}
+on:
+  workflow_dispatch:
+jobs:
+  list_pr:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: otakakot/repository-dispatch@v0
+        with:
+          app-id: ${{ secrets.BOT_GITHUB_APP_ID }}
+          secret-key: ${{ secrets.BOT_GITHUB_APP_PRIVATE_KEY }}
+          repository-owner: otakakot
+          repository-name: sample-release
+          event-type: ref
+          client-payload: '{"ref": "pre-release-2024-03-16-5"}'
