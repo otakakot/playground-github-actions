@@ -12,6 +12,6 @@ jobs:
           app-id: ${{ secrets.BOT_GITHUB_APP_ID }}
           secret-key: ${{ secrets.BOT_GITHUB_APP_PRIVATE_KEY }}
           repository-owner: otakakot
-          repository-name: sample-release
+          repository-name: sample-resource
           event-type: ref
           client-payload: "{\"ref\": \"pre-release-2024-03-16-5\"}"
