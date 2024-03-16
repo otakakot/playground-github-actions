@@ -7,11 +7,11 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Dispatch
-        uses: otakakot/repository-dispatch@v0.0.13
+        uses: otakakot/repository-dispatch@v0.0.14
         with:
           app-id: ${{ secrets.BOT_GITHUB_APP_ID }}
           secret-key: ${{ secrets.BOT_GITHUB_APP_PRIVATE_KEY }}
           repository-owner: otakakot
           repository-name: sample-release
           event-type: ref
-          client-payload: "{\"ref\": \"pre-release-2024-03-16-5\"}"
+          client-payload: '{"ref": "pre-release-2024-03-16-5"}'
