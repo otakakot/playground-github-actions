@@ -15,9 +15,9 @@ jobs:
           owner: otakakot
           repositories: sample-resource
       - name: Dispatch
-        uses: otakakot/repository-dispatch@v1
+        uses: otakakot/repository-dispatch@v1.0.0
         with:
           token: ${{ steps.generate-token.outputs.token }}
           repository: otakakot/sample-resource
           event-type: ref
-          client-payload: "{\"ref\": \"pre-release-2024-03-16-9\"}"
+          client-payload: "{\"ref\": \"pre-release-2024-03-16-10\"}"
