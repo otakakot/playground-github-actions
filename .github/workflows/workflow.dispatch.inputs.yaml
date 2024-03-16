@@ -48,6 +48,10 @@ jobs:
             echo "tag is invalid"
             exit 1
           fi
+      - name: Repository
+        run: |
+          echo ${GITHUB_REPOSITORY#${GITHUB_REPOSITORY_OWNER}/}
+          echo ${${{ github.repository }}#${{ github.repository_owner }}/}
 
   workflow_dispatch:
     needs: prepare
