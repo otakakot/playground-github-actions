@@ -14,4 +14,4 @@ jobs:
           repository-owner: otakakot
           repository-name: sample-release
           event-type: ref
-          client-payload: '{\"ref\": \"pre-release-2024-03-16-5\"}'
+          client-payload: "{\"ref\": \"pre-release-2024-03-16-5\"}"
