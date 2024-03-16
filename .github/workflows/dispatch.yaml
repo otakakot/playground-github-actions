@@ -3,10 +3,10 @@ run-name: ${{ github.ref_name }} by @${{ github.actor }} at ${{ github.workflow 
 on:
   workflow_dispatch:
 jobs:
-  list_pr:
+  dispatch:
     runs-on: ubuntu-22.04
     steps:
-      - name: Checkout
+      - name: Dispatch
         uses: otakakot/repository-dispatch@v0
         with:
           app-id: ${{ secrets.BOT_GITHUB_APP_ID }}
