@@ -20,4 +20,4 @@ jobs:
           token: ${{ steps.generate-token.outputs.token }}
           repository: otakakot/sample-resource
           event-type: ref
-          client-payload: "{\"ref\": \"pre-release-2024-03-16-14\"}"
+          client-payload: '{"ref": "pre-release-2024-03-17-1"}'
