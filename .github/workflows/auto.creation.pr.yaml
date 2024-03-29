@@ -35,5 +35,5 @@ jobs:
           git config --global user.name ${{ env.GH_USER_NAME }}
           git add test.txt
           git commit -m "auto commit"
-          git --set-upstream origin feature/${{ steps.date.outputs.date }}
+          git push --set-upstream origin feature/${{ steps.date.outputs.date }}
           gh pr create --title "auto creation pr" --body "auto creation pr" --base main --head feature/${{ steps.date.outputs.date }}
