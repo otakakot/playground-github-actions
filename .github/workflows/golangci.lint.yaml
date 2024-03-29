@@ -37,4 +37,4 @@ jobs:
           git add .golangci.version
           git commit -m "update golangci-lint version to v${version}"
           git push --set-upstream origin feature/golangci-lint-v${version}
-          gh pr create --title "Update golangci-lint Version" --body "update golangci-lint version to v${version}" --base main --head feature/golangci-lint-v${version}
+          gh pr create --title "Update golangci-lint version" --body "update golangci-lint version to v${version}" --base main --head feature/golangci-lint-v${version}
