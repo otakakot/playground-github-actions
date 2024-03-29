@@ -17,5 +17,3 @@ jobs:
           echo ${id}
       - name: Repository Name
         run: echo "${GITHUB_REPOSITORY#${GITHUB_REPOSITORY_OWNER}/}"
-      - name: Repository Name
-        run: echo "${${{ github.repository }}#${{ github.repository_owner }}/}"
