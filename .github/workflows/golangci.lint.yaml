@@ -16,3 +16,5 @@ jobs:
         run: |
           str=$(golangci-lint --version)
           echo "${str}"
+          version=$(golangci-lint --version | awk '{print $3}')
+          echo "${version}"
