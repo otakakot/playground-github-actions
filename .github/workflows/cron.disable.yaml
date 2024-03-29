@@ -23,8 +23,8 @@ jobs:
           token: ${{ steps.generate-token.outputs.token }}
       - name: Disable
         env:
-          GH_USER_EMAIL: 126062861+otakakot-bot[bot]@users.noreply.github.com
-          GH_USER_NAME: otakakot-bot[bot]
+          GH_USER_EMAIL: 126062861+otakakot[bot]@users.noreply.github.com
+          GH_USER_NAME: otakakot[bot]
           GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
         run: |
           ./script/disable.sh ./.github/workflows/cron.yaml
