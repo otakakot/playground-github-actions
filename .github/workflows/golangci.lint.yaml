@@ -13,4 +13,6 @@ jobs:
           args: --allow-parallel-runners
       - name: Golangci-lint Version
         if: failure()
-        run: golangci-lint --version
+        run: |
+          str=$(golangci-lint --version)
+          echo "${str}"
