@@ -12,4 +12,5 @@ jobs:
           version: latest
           args: --allow-parallel-runners
       - name: Golangci-lint Version
+        if: failure()
         run: golangci-lint --version
