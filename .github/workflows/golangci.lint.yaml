@@ -6,6 +6,16 @@ jobs:
   golangci-lint:
     runs-on: ubuntu-latest
     steps:
+      - name: Generate token
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.BOT_GITHUB_APP_ID }}
+          private-key: ${{ secrets.BOT_GITHUB_APP_PRIVATE_KEY }}
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
       - name: Golangci-lint
         uses: golangci/golangci-lint-action@v4
         with:
@@ -13,8 +23,18 @@ jobs:
           args: --allow-parallel-runners
       - name: Golangci-lint Version
         if: failure()
+        env:
+            GH_USER_EMAIL: 126062861+otakakot-bot[bot]@users.noreply.github.com
+            GH_USER_NAME: otakakot-bot[bot]
+            GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
         run: |
-          v=$(echo $(golantci-lint --version) | sed -E 's/[^0-9.]+//g')
-          echo "${str}"
           version=$(golangci-lint --version | awk '{print $4}')
-          echo "${version}"
+          echo ${version} > .golangci.version
+          git branch feature/golangci-lint-v${version}
+          git switch feature/golangci-lint-v${version}
+          git config --global user.email ${{ env.GH_USER_EMAIL }}
+          git config --global user.name ${{ env.GH_USER_NAME }}
+          git add .golangci.version
+          git commit -m "update golangci-lint version to v${version}"
+          git push --set-upstream origin feature/golangci-lint-v${version}
+          gh pr create --title "Update golangci-lint Version" --body "update golangci-lint version to v${version}" --base main --head feature/golangci-lint-v${version}
