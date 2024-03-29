@@ -1,0 +1,39 @@
+name: auto creation pr
+run-name: ${{ github.ref_name }} by @${{ github.actor }} ${{ github.workflow }}
+on:
+  workflow_dispatch:
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate token
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.BOT_GITHUB_APP_ID }}
+          private-key: ${{ secrets.BOT_GITHUB_APP_PRIVATE_KEY }}
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
+      - name: Date
+        id: date
+        run: |
+          DATE=`date +%Y-%m-%d-%H-%M-%S`
+          echo "date=${DATE}" >> $GITHUB_OUTPUT
+      - name: Edit
+        run: echo ${{ steps.date.outputs.date }} >> test.txt
+      - name: Create PR
+        env:
+          GH_USER_EMAIL: 126062861+otakakot-bot[bot]@users.noreply.github.com
+          GH_USER_NAME: otakakot-bot[bot]
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
+        run: |
+          git branch feature/${{ steps.date.outputs.date }}
+          git switch feature/${{ steps.date.outputs.date }}
+          git config --global user.email ${{ env.GH_USER_EMAIL }}
+          git config --global user.name ${{ env.GH_USER_NAME }}
+          git add test.txt
+          git commit -m "auto commit"
+          git push
+          gh pr create --title "auto creation pr" --body "auto creation pr" --base main --head feature/${{ steps.date.outputs.date }}
