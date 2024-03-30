@@ -16,4 +16,12 @@ jobs:
         run: ${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua install --tags golangci/golangci-lint
       - name: Run golangci-lint
         id: golangci-lint
-        run: golangci-lint --version
+        run: | 
+          version=$(golangci-lint --version | awk '{print $4}')
+          echo "version=${version}" >> $GITHUB_OUTPUT
+      - name: Golangci-lint
+        uses: golangci/golangci-lint-action@v4
+        with:
+          version: ${{ steps.golangci-lint.outputs.version }}
+          args: --allow-parallel-runners
+  
