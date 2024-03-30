@@ -15,4 +15,5 @@ jobs:
       - name: Install golangci-lint
         run: ${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua install --tags golangci/golangci-lint
       - name: Run golangci-lint
-        run: golangci-lint version
+        id: golangci-lint
+        run: golangci-lint --version
