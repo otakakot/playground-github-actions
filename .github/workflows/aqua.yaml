@@ -1,0 +1,18 @@
+name: aqua
+run-name: ${{ github.ref_name }} by @${{ github.actor }} ${{ github.workflow }}
+on:
+  workflow_dispatch:
+jobs:
+  auto-creation-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup aqua
+        uses: aquaproj/aqua-installer@v2.1.2
+        with:
+          aqua_version: v2.9.0
+      - name: Install golangci-lint
+        run: ${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua install --tags golangci/golangci-lint
+      - name: Run golangci-lint
+        run: golangci-lint version
