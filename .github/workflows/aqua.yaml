@@ -8,16 +8,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup aqua
-        uses: aquaproj/aqua-installer@v3.0.0
-        with:
-          aqua_version: v2.25.1
-      - name: Install golangci-lint
-        run: ${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua install --tags golangci/golangci-lint
       - name: Version golangci-lint
         id: golangci-lint
         run: | 
-          version=$(golangci-lint --version | awk '{print $4}')
+          version=$(yq '.packages[]' aqua.yaml | grep 'golangci' | cut -d "@" -f 2)
           echo "version=${version}" >> $GITHUB_OUTPUT
       - name: Golangci-lint
         uses: golangci/golangci-lint-action@v4
