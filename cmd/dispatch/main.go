@@ -22,9 +22,11 @@ const (
 func main() {
 	now := time.Now()
 
+	const def = 60
+
 	payload := jwt.MapClaims{
-		"exp": now.Unix() + 60,
 		"iat": now.Unix(),
+		"exp": now.Unix() + def,
 		"iss": GitHubAppID,
 	}
 
