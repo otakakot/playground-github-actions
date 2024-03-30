@@ -10,3 +10,4 @@ registries:
   ref: v4.131.0 # renovate: depName=aquaproj/aqua-registry
 packages:
   - name: google/yamlfmt@v0.11.0
+  - name: golangci/golangci-lint@1.57.2
