@@ -1,0 +1,27 @@
+name: create release
+run-name: ${{ github.ref_name }} by @${{ github.actor }} at ${{ github.workflow }}
+on:
+  push:
+    tags:
+      - v*
+jobs:
+  check:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Generate token
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.BOT_GITHUB_APP_ID }}
+          private-key: ${{ secrets.BOT_GITHUB_APP_PRIVATE_KEY }}
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Required to get tags
+          token: ${{ steps.generate-token.outputs.token }}
+      - name: Create release
+        env:
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
+        run: |
+          version=$(gh release list --limit 1 --json name | jq -r '.[0].name')
+          gh release create ${version} --title ${version} --notes "Release ${version}" --target main
