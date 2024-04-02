@@ -21,9 +21,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Required to get tags 
+          fetch-depth: 0 # Required to get tags
+      - name: Generate token
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.BOT_GITHUB_APP_ID }}
+          private-key: ${{ secrets.BOT_GITHUB_APP_PRIVATE_KEY }}
       - name: Create tag
         id: create-tag
+        env:
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
         run: |
           ORD=$(gh release list --limit 1 --json name | jq -r '.[0].name' | sed 's/v//')
           echo ${ORD}
