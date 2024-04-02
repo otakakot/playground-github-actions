@@ -91,4 +91,4 @@ jobs:
               ;;
           esac
           new_version="v${major}.${minor}.${patch}"
-          echo "new_version=${new_version}" >> $GITHUB_OUTPUT
+          echo "new_version=${new_version}"
