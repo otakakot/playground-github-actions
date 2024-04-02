@@ -70,6 +70,26 @@ jobs:
         run: |
           version=$(gh release list --limit 1 --json name | jq -r '.[0].name' | sed 's/v//')
           IFS='.' read -ra version_array <<< ${version}
-          echo "major=${version_array[0]}"
-          echo "minor=${version_array[1]}"
-          echo "patch=${version_array[2]}"
+          major=${version_array[0]}
+          minor=${version_array[1]}
+          patch=${version_array[2]}
+          case ${{ github.event.inputs.semantic }} in
+          "major")
+              major=$((major + 1))
+              minor=0
+              patch=0
+              ;;
+          "minor")
+              minor=$((minor + 1))
+              patch=0
+              ;;
+          "patch")
+              patch=$((patch + 1))
+              ;;
+          *)
+              echo "Invalid part: $2"
+              exit 1
+              ;;
+          esac
+          new_version="v${major}.${minor}.${patch}"
+          echo "new_version=${new_version}" >> $GITHUB_OUTPUT
