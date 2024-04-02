@@ -34,7 +34,7 @@ jobs:
           GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
         run: |
           ORD=$(gh release list --limit 1 --json name | jq -r '.[0].name' | sed 's/v//')
-          echo ${ORD}
+          echo "version=${ORD}" >> $GITHUB_OUTPUT
       - name: Check diff
         id: check-diff
         run: |
@@ -56,5 +56,7 @@ jobs:
       - name: Create tag
         id: create-tag
         run: |
-          ORD=$(gh release list --limit 1 --json name | jq -r '.[0].name' | sed 's/v//')
-          echo ${ORD}
+          IFS='.' read -ra version_array <<< "$version"
+          echo "major=${version_array[0]}"
+          echo "minor=${version_array[1]}"
+          echo "patch=${version_array[2]}"
