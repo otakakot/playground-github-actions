@@ -23,5 +23,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
         run: |
-          version=$(gh release list --limit 1 --json name | jq -r '.[0].name')
+          version=$(git tag --sort=-creatordate | head -n 1)
           gh release create ${version} --title ${version} --notes "Release ${version}" --target main --latest
