@@ -91,4 +91,11 @@ jobs:
               ;;
           esac
           new_version="v${major}.${minor}.${patch}"
-          echo "new_version=${new_version}"
+          echo "new_version=${new_version}" >> $GITHUB_OUTPUT
+      - name: Push tag
+        id: push-tag
+        env:
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
+        run: |
+          git tag ${{ steps.create-tag.outputs.new_version }}
+          git push origin ${{ steps.create-tag.outputs.new_version }}
