@@ -22,6 +22,4 @@ jobs:
       - name: Create release
         env:
           GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
-        run: |
-          version=$(git tag --sort=-creatordate | head -n 1)
-          gh release create ${{ github.event.ref }} --title ${version} --notes "Release ${version}" --target main --latest
+        run: gh release create ${{ github.event.ref }} --title ${{ github.event.ref }} --notes "Release ${{ github.event.ref }}" --target main --latest
