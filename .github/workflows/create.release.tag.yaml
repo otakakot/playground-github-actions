@@ -14,7 +14,7 @@ on:
           - major
 jobs:
   check:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     outputs:
       creatable: ${{ steps.check-diff.outputs.creatable }}
     steps:
@@ -36,7 +36,7 @@ jobs:
             echo "creatable=true" >> $GITHUB_OUTPUT
           fi
   tag:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: check
     if: needs.check.outputs.creatable == 'true'
     steps:
