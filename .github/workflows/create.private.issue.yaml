@@ -17,7 +17,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          repository: ${{ secrets.REPOSITORY }}
+          repository: otakakot/dailyreport
           token: ${{ steps.generate-token.outputs.token }}
       - name: Check diff
         id: check-diff
