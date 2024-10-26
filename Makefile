@@ -9,6 +9,7 @@ ymlfmt:
 .PHONY: ymlint
 ymlint:
 	@yamlfmt -lint
+	@actionlint
 
 .PHONY: module
 module: ## go modules update
