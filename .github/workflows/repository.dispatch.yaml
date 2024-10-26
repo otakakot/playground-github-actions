@@ -7,7 +7,11 @@ on:
       - repository-dispatch
 jobs:
   repository_dispatch:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    timeout-minutes: 5
     steps:
       - name: Repository Dispatch
         run: |

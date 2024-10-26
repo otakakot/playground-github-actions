@@ -5,12 +5,16 @@ on:
 jobs:
   auto-creation-pr:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    timeout-minutes: 5
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Version golangci-lint
         id: golangci-lint
-        run: | 
+        run: |
           version=$(yq '.packages[]' aqua.yaml | grep 'golangci' | cut -d "@" -f 2)
           echo "version=${version}" >> $GITHUB_OUTPUT
       - name: Golangci-lint

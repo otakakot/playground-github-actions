@@ -4,7 +4,11 @@ on:
   workflow_dispatch:
 jobs:
   playground:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    timeout-minutes: 5
     steps:
       # @see https://github.com/actions/runner-images/blob/main/images/linux/Ubuntu2204-Readme.md
       - name: yq

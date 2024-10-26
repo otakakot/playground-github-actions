@@ -26,7 +26,11 @@ on:
         required: false
 jobs:
   prepare:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    timeout-minutes: 5
     outputs:
       tag: ${{ steps.tag.outputs.tag }}
     steps:
@@ -52,10 +56,13 @@ jobs:
         run: |
           echo ${GITHUB_REPOSITORY#${GITHUB_REPOSITORY_OWNER}/}
           echo ${${{ github.repository }}#${{ github.repository_owner }}/}
-
   workflow_dispatch:
     needs: prepare
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    timeout-minutes: 5
     env:
       ENV: |-
         ${{ fromJSON('{

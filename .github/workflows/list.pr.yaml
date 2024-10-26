@@ -9,7 +9,11 @@ on:
   workflow_dispatch:
 jobs:
   list_pr:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    timeout-minutes: 5
     env:
         GH_TOKEN: ${{ github.token }}
     steps:
