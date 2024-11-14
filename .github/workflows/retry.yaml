@@ -24,4 +24,4 @@ jobs:
       - name: Retry
         env:
           GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
-        run: gh run reren ${{ github.event.workflow_run.id }} --failed
+        run: gh run reren ${{ github.event.workflow_run.id }}
