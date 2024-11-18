@@ -19,6 +19,7 @@ jobs:
         run: |
           echo ${{ github.event.workflow_run.id }}
           echo ${{ github.event.workflow_run.name }}
+          echo ${{ github.event_name }}
           echo ${{ github.workflow }}
           echo ${{ github.event.workflow_run.url }}
           echo "https://github.com/${{ github.repository }}/actions/runs/${{ github.event.workflow_run.id }}"
