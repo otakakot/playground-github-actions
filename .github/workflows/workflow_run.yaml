@@ -10,7 +10,7 @@ defaults:
   run:
     shell: bash
 jobs:
-  prepare:
+  workflow_run:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     timeout-minutes: 5
