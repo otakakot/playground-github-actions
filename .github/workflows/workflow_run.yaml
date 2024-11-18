@@ -3,7 +3,7 @@ run-name: ${{ github.ref_name }} by @${{ github.actor }} at ${{ github.workflow 
 on:
   workflow_run:
     workflows:
-      - '*_suffix'
+      - "*_suffix"
     types:
       - completed
 defaults:
