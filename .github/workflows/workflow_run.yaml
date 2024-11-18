@@ -18,3 +18,4 @@ jobs:
       - name: echo ${{ github.event.workflow_run.id }}
         run:
             echo ${{ github.event.workflow_run.id }}
+            echo ${{ github.event.workflow_run.name}}
