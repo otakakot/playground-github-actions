@@ -1,0 +1,49 @@
+name: workflow dispatch inputs
+run-name: ${{ github.ref_name }} by @${{ github.actor }} at ${{ github.workflow }}
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: "environment"
+        required: true
+        options:
+          - develop
+          - staging
+          - production
+  repository_dispatch:
+    types:
+      - repository-dispatch
+defaults:
+  run:
+    shell: bash
+jobs:
+  environment:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      environment: ${{ steps.environment.outputs.environment }}
+    steps:
+      - name: Set Environment
+        id: environment
+        run: |
+          if [[ -z "${{ inputs.environment }}" ]]; then
+            echo "environment=${{ github.event.client_payload.environment }}" >> $GITHUB_OUTPUT
+          else
+            echo "environment=${{ inputs.environment }}" >> $GITHUB_OUTPUT
+          fi
+  project:
+    needs: environment
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      PROJECT: |-
+        ${{ fromJSON('{
+          "develop": "hoge",
+          "staging": "fuga",
+          "production": "piyo"
+        }')[needs.environment.outputs.environment] }}
+    steps:
+      - name: Echo Project
+        run: |
+          echo ${{ env.PROJECT }}
