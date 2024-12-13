@@ -1,0 +1,33 @@
+name: rerun
+run-name: ${{ github.workflow }} (${{ github.ref_name }} by ${{ github.actor }})
+concurrency: ${{ github.workflow }}
+on:
+  workflow_dispatch:
+    inputs:
+      value:
+        required: true
+        type: string
+  repository_dispatch:
+    types:
+      - rerun
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      value: ${{ steps.value.outputs.value }}
+    steps:
+      - name: Value
+        id: value
+        run: |
+          if [[ -z "${{ inputs.value }}" ]]; then
+            echo "value=${{ github.event.client_payload.value }} >> $GITHUB_OUTPUT
+          else
+            echo "value=${{ inputs.value }}" >> $GITHUB_OUTPUT
+          fi
+  echo:
+    runs-on: ubuntu-latest
+    needs: prepare
+    steps:
+      - name: Echo
+        run: |
+          echo "${{ needs.prepare.outputs.value }}"
