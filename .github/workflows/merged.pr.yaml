@@ -13,8 +13,19 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Check PR
+      - name: Increment Patch Version
+        id: increment-patch-version
         if: contains(github.event.pull_request.labels.*.name, 'patch')
         run: |
-          echo ${{ github.event.pull_request.labels }}
-          echo "hoge"
+          version=$(gh release list --limit 1 --json name | jq -r '.[0].name' | sed 's/v//')
+          IFS='.' read -ra version_array <<< ${version}
+          major=${version_array[0]}
+          minor=${version_array[1]}
+          patch=${version_array[2]}
+          patch=$((patch + 1))
+          new_version="v${major}.${minor}.${patch}"
+          echo "new_version=${new_version}" >> $GITHUB_OUTPUT
+      - name: Push Tag
+        run: |
+          git tag ${{ steps.increment-patch-version.outputs.new_version }}
+          git push origin ${{ steps.increment-patch-version.outputs.new_version }}
