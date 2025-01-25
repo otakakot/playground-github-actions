@@ -24,7 +24,7 @@ jobs:
         with:
           fetch-depth: 0 # Required to get tags
           token: ${{ steps.generate-token.outputs.token }}
-      - name: Increment path version
+      - name: Increment patch version
         id: increment-patch-version
         if: contains(github.event.pull_request.labels.*.name, 'patch')
         env:
