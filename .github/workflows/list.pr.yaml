@@ -7,12 +7,12 @@ on:
     paths:
     - .github/workflows/list.pr.yaml
   workflow_dispatch:
+defaults:
+  run:
+    shell: bash
 jobs:
   list_pr:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
     timeout-minutes: 5
     env:
         GH_TOKEN: ${{ github.token }}

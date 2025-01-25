@@ -7,12 +7,12 @@ on:
       - disable
   schedule:
     - cron: '0 15 * * *'
+defaults:
+  run:
+    shell: bash
 jobs:
   disable:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
     timeout-minutes: 5
     steps:
       - name: Generate token

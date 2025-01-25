@@ -4,12 +4,12 @@ on:
   pull_request:
     types:
       - opened
+defaults:
+  run:
+    shell: bash
 jobs:
   auto-merge:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
     timeout-minutes: 5
     if: ${{ startsWith( github.head_ref , 'renovate') }}
     steps:

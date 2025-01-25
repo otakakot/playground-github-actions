@@ -4,12 +4,12 @@ on:
   workflow_dispatch:
 #  schedule:
 #    - cron: '*/10 * * * *'
+defaults:
+  run:
+    shell: bash
 jobs:
   schedule_cron:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
     timeout-minutes: 5
     steps:
       - name: Checkout

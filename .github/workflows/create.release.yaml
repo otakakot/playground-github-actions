@@ -4,12 +4,12 @@ on:
   push:
     tags:
       - v*
+defaults:
+  run:
+    shell: bash
 jobs:
   check:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
     timeout-minutes: 5
     steps:
       - name: Generate token

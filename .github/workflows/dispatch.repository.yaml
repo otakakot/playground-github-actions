@@ -2,12 +2,12 @@ name: dispatch repository
 run-name: ${{ github.ref_name }} by @${{ github.actor }} at ${{ github.workflow }}
 on:
   workflow_dispatch:
+defaults:
+  run:
+    shell: bash
 jobs:
   dispatch:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
     timeout-minutes: 5
     steps:
       - name: Generate token

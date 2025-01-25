@@ -2,12 +2,12 @@ name: create tag
 run-name: ${{ github.ref_name }} by @${{ github.actor }} at ${{ github.workflow }}
 on:
   workflow_dispatch:
+defaults:
+  run:
+    shell: bash
 jobs:
   check:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
     timeout-minutes: 5
     outputs:
       creatable: ${{ steps.check-diff.outputs.creatable }}
@@ -31,9 +31,6 @@ jobs:
           fi
   tag:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
     timeout-minutes: 5
     needs: check
     if: needs.check.outputs.creatable == 'true'

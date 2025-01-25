@@ -5,12 +5,12 @@ on:
   repository_dispatch:
     types:
       - repository-dispatch
+defaults:
+  run:
+    shell: bash
 jobs:
   repository_dispatch:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
     timeout-minutes: 5
     steps:
       - name: Repository Dispatch
