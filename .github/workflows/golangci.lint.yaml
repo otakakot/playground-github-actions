@@ -42,4 +42,4 @@ jobs:
           git commit -m "update golangci-lint version to v${version}"
           git push --set-upstream origin feature/golangci-lint-v${version}
           url="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          gh pr create --title "Update golangci-lint version" --body "update golangci-lint version to v${version}\n\n${url}" --base main --head feature/golangci-lint-v${version}
+          echo "update golangci-lint version to v${version}\n\n${url}" | gh pr create --title "Update golangci-lint version" --base main --head feature/golangci-lint-v${version} --body-file=-
