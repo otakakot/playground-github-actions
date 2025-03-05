@@ -15,4 +15,3 @@ ymlint:
 module: ## go modules update
 	@go get -u -t ./...
 	@go mod tidy
-	@go mod vendor
