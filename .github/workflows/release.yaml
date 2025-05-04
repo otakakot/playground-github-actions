@@ -28,4 +28,4 @@ jobs:
           GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
         run: |
           version=$(git tag --sort=-creatordate | head -n 1)
-          gh release create ${version} --title ${version} --generate-notes --target main --latest
+          gh release create ${version} --generate-notes --latest
