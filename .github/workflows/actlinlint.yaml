@@ -18,7 +18,7 @@ jobs:
       - name: Setup aqua
         uses: aquaproj/aqua-installer@d1fe50798dbadd4eb5b98957290ca175f6b4870f # v4.0.2
         with:
-          aqua_version: v2.45.1
+          aqua_version: v2.53.10
       - name: Install actionlint
         env:
           PATH: "${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin:$PATH"
