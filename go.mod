@@ -4,9 +4,9 @@ go 1.23.5
 
 require (
 	github.com/golang-jwt/jwt/v5 v5.3.0
-	github.com/google/go-github/v77 v77.0.0
-	github.com/google/go-github/v77 v77.0.0
-	github.com/google/go-github/v77 v77.0.0
+	github.com/google/go-github/v78 v78.0.0
+	github.com/google/go-github/v78 v78.0.0
+	github.com/google/go-github/v78 v78.0.0
 )
 
 require github.com/google/go-querystring v1.1.0 // indirect
