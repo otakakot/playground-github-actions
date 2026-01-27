@@ -6,8 +6,8 @@ toolchain go1.25.6
 
 require (
 	github.com/golang-jwt/jwt/v5 v5.3.0
-	github.com/google/go-github/v81 v81.0.0
-	github.com/google/go-github/v81 v81.0.0
+	github.com/google/go-github/v69 v69.2.0
+	github.com/google/go-github/v82 v82.0.0
 )
 
-require github.com/google/go-querystring v1.1.0 // indirect
+require github.com/google/go-querystring v1.2.0 // indirect
