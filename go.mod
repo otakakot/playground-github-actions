@@ -5,8 +5,8 @@ go 1.24.0
 toolchain go1.25.6
 
 require (
-	github.com/golang-jwt/jwt/v5 v5.3.0
-	github.com/google/go-github/v82 v82.0.0
+	github.com/golang-jwt/jwt/v5 v5.3.1
+	github.com/google/go-github/v69 v69.2.0
 	github.com/google/go-github/v82 v82.0.0
 )
 
