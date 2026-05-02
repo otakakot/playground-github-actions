@@ -1,0 +1,23 @@
+name: playground
+run-name: ${{ github.ref_name }} by @${{ github.actor }} at ${{ github.workflow }}
+on:
+  workflow_dispatch:
+defaults:
+  run:
+    shell: bash
+jobs:
+  playground:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      # @see https://github.com/actions/runner-images/blob/main/images/linux/Ubuntu2204-Readme.md
+      - name: yq
+        run: yq --version
+      - name: jq
+        run: jq --version
+      - name: Generate uuid
+        run: |
+          id=$(uuidgen | tr "[:upper:]" "[:lower:]")
+          echo ${id}
+      - name: Repository Name
+        run: echo "${GITHUB_REPOSITORY#${GITHUB_REPOSITORY_OWNER}/}"

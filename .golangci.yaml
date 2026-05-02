@@ -1,0 +1,15 @@
+run:
+  timeout: 10m
+linters:
+  enable-all: true
+  disable:
+    # disable because the large amount of correspondence
+    - wrapcheck
+    # disable because unnecessary field declaration
+    - exhaustruct
+    - tenv # disable deprecated (since v1.64.0)
+    - rowserrcheck # disable because because of generics
+    - sqlclosecheck
+    - wastedassign
+    # https://github.com/golangci/golangci-lint/issues/3711
+    - contextcheck

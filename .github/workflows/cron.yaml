@@ -1,0 +1,34 @@
+name: cron
+run-name: ${{ github.ref_name }} by @${{ github.actor }} at ${{ github.workflow }}
+on:
+  workflow_dispatch:
+#  schedule:
+#    - cron: '*/10 * * * *'
+defaults:
+  run:
+    shell: bash
+jobs:
+  schedule_cron:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Check
+        id: check
+        # 理想はここでジョブの実行をチェックして実行が終了したかどうかのフラグを立てる
+        run: echo "done=true" >> "$GITHUB_OUTPUT"
+      - name: Generate token
+        if: ${{ steps.check.outputs.done }}
+        id: generate-token
+        uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2.2.2
+        with:
+          app-id: ${{ secrets.BOT_GITHUB_APP_ID }}
+          private-key: ${{ secrets.BOT_GITHUB_APP_PRIVATE_KEY }}
+      - name: Repository dispatch
+        if: ${{ steps.check.outputs.done }}
+        uses: peter-evans/repository-dispatch@28959ce8df70de7be546dd1250a005dd32156697 # v4.0.1
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
+          repository: ${{ github.repository }}
+          event-type: disable

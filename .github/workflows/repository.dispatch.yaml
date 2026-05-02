@@ -1,0 +1,18 @@
+name: repository dispatch
+run-name: ${{ github.ref_name }} by @${{ github.actor }} at ${{ github.workflow }}
+on:
+  # https://docs.github.com/en/webhooks/webhook-events-and-payloads#repository_dispatch
+  repository_dispatch:
+    types:
+      - repository-dispatch
+defaults:
+  run:
+    shell: bash
+jobs:
+  repository_dispatch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Repository Dispatch
+        run: |
+          echo "Hello, Repository Dispatch!"

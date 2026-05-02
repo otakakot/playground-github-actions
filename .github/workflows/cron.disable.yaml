@@ -1,0 +1,42 @@
+name: cron disable
+run-name: ${{ github.ref_name }} by @${{ github.actor }} at ${{ github.workflow }}
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types:
+      - disable
+  schedule:
+    - cron: '0 15 * * *'
+defaults:
+  run:
+    shell: bash
+jobs:
+  disable:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Generate token
+        id: generate-token
+        uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2.2.2
+        with:
+          app-id: ${{ secrets.BOT_GITHUB_APP_ID }}
+          private-key: ${{ secrets.BOT_GITHUB_APP_PRIVATE_KEY }}
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
+      - name: Disable
+        env:
+          GH_USER_EMAIL: 126062861+otakakot[bot]@users.noreply.github.com
+          GH_USER_NAME: otakakot[bot]
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
+        run: |
+          ./script/disable.sh ./.github/workflows/cron.yaml
+          diff=$(git diff ./.github/workflows/cron.yaml)
+          if [[ -n "${diff}" ]]; then
+            git config --global user.email ${{ env.GH_USER_EMAIL }}
+            git config --global user.name ${{ env.GH_USER_NAME }}
+            git add ./.github/workflows/cron.yaml
+            git commit -m "disable"
+            git push
+          fi

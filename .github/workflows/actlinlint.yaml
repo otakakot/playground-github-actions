@@ -1,0 +1,27 @@
+name: actionlint
+run-name: ${{ github.ref_name }} by @${{ github.actor }} ${{ github.workflow }}
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - .github/workflows/**.yaml
+defaults:
+  run:
+    shell: bash
+jobs:
+  actinlint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Setup aqua
+        uses: aquaproj/aqua-installer@11dd79b4e498d471a9385aa9fb7f62bb5f52a73c # v4.0.4
+        with:
+          aqua_version: v2.45.1
+      - name: Install actionlint
+        env:
+          PATH: "${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin:$PATH"
+        run: aqua install --tags actionlint
+      - name: Run actionlint
+        run: actionlint

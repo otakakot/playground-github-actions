@@ -1,0 +1,28 @@
+name: job trigger
+run-name: ${{ github.ref_name }} by @${{ github.actor }} at ${{ github.workflow }}
+on:
+  workflow_dispatch:
+defaults:
+  run:
+    shell: bash
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Trigger
+        run: echo "trigger"
+      - name: Check
+        run: |
+          count=1
+          while [[ true ]] ; do
+            if [[ ${count} -gt 3 ]]; then
+              echo "timeout"
+              exit 1
+            fi
+            count=$((count + 1))
+            sleep 60
+          done
+          echo "done"

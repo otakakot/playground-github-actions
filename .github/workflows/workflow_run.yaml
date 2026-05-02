@@ -1,0 +1,25 @@
+name: workflow_run
+run-name: ${{ github.ref_name }} by @${{ github.actor }} at ${{ github.workflow }}
+on:
+  workflow_run:
+    workflows:
+      - "*_suffix"
+    types:
+      - completed
+defaults:
+  run:
+    shell: bash
+jobs:
+  workflow_run:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    timeout-minutes: 5
+    steps:
+      - name: Print workflow run details
+        run: |
+          echo ${{ github.event.workflow_run.id }}
+          echo ${{ github.event.workflow_run.name }}
+          echo ${{ github.event_name }}
+          echo ${{ github.workflow }}
+          echo ${{ github.event.workflow_run.url }}
+          echo "https://github.com/${{ github.repository }}/actions/runs/${{ github.event.workflow_run.id }}"
